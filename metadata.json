@@ -2,5 +2,7 @@
   "name": "WooCommerce Store & Mobile Checkout",
   "description": "High-conversion WordPress storefront with WooCommerce, Elementor sections, Contact Form 7, and mobile-optimized checkout flow.",
   "requestFramePermissions": [],
-  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+  "majorCapabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
 }
