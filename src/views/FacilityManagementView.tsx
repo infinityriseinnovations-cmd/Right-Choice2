@@ -15,7 +15,7 @@ import {
 } from 'lucide-react';
 
 export const FacilityManagementView: React.FC = () => {
-  const { setCurrentRoute } = useStore();
+  const { setCurrentRoute, products, addToCart, setSelectedProduct } = useStore();
 
   const services = [
     {
@@ -119,6 +119,82 @@ export const FacilityManagementView: React.FC = () => {
                   <span>Request Custom Quotation</span>
                   <ArrowRight className="w-3.5 h-3.5" />
                 </button>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        {/* Relevant Facility Products */}
+        <div className="mb-16">
+          <div className="flex flex-col sm:flex-row justify-between items-start sm:items-end mb-8 gap-4">
+            <div>
+              <span className="text-xs font-bold text-[#006e2d] uppercase tracking-wider font-headline">
+                Commercial Chemicals &amp; Hardware
+              </span>
+              <h2 className="text-2xl sm:text-3xl font-black font-headline text-[#0A2540] mt-1">
+                Relevant Facility Management Products
+              </h2>
+              <p className="text-xs sm:text-sm text-slate-600 mt-1">
+                Chemicals and equipment utilized by our housekeeping teams, also available for direct campus procurement.
+              </p>
+            </div>
+            <button 
+              onClick={() => setCurrentRoute('shop')}
+              className="text-xs font-bold text-[#00355f] hover:underline flex items-center gap-1 cursor-pointer"
+            >
+              <span>Explore All Facility Supplies</span>
+              <ArrowRight className="w-3.5 h-3.5" />
+            </button>
+          </div>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+            {products.filter(p => p.category === 'Surface Care' || p.category === 'Sanitation' || p.category === 'Institutional Bulk' || p.category === 'Accessories').slice(0, 4).map((item) => (
+              <div key={item.id} className="bg-white rounded-2xl border border-slate-200 overflow-hidden shadow-xs hover:shadow-md transition-shadow flex flex-col justify-between group">
+                <div className="p-4 pb-0 relative">
+                  <span className="absolute top-6 left-6 z-10 bg-[#0A2540] text-white text-[10px] font-bold px-2 py-0.5 rounded">
+                    {item.packSize}
+                  </span>
+                  <div 
+                    onClick={() => {
+                      setSelectedProduct(item);
+                      setCurrentRoute('product');
+                      window.scrollTo({ top: 0, behavior: 'smooth' });
+                    }}
+                    className="w-full aspect-square bg-[#eff4ff] rounded-xl overflow-hidden cursor-pointer flex items-center justify-center p-3"
+                  >
+                    <img src={item.image} alt={item.name} className="w-full h-full object-contain group-hover:scale-105 transition-transform" />
+                  </div>
+                </div>
+                <div className="p-5 flex-1 flex flex-col justify-between">
+                  <div>
+                    <span className="text-[10px] font-bold uppercase tracking-wider text-[#006e2d]">{item.brand}</span>
+                    <h3 
+                      onClick={() => {
+                        setSelectedProduct(item);
+                        setCurrentRoute('product');
+                        window.scrollTo({ top: 0, behavior: 'smooth' });
+                      }}
+                      className="text-sm font-bold font-headline text-slate-900 mt-1 cursor-pointer hover:text-[#00355f] line-clamp-2"
+                    >
+                      {item.name}
+                    </h3>
+                    <p className="text-xs text-slate-500 mt-1 line-clamp-2">{item.shortDescription}</p>
+                  </div>
+                  <div className="mt-4 pt-3 border-t border-slate-100 flex items-center justify-between">
+                    <div>
+                      <span className="text-base font-black text-[#00355f]">₹{item.price}</span>
+                      {item.regularPrice > item.price && (
+                        <span className="text-xs text-slate-400 line-through ml-1.5">₹{item.regularPrice}</span>
+                      )}
+                    </div>
+                    <button 
+                      onClick={() => addToCart(item, 1)}
+                      className="px-3 py-1.5 bg-[#00355f] hover:bg-[#0A2540] text-white rounded-lg text-xs font-bold transition-colors cursor-pointer"
+                    >
+                      Add to Cart
+                    </button>
+                  </div>
+                </div>
               </div>
             ))}
           </div>

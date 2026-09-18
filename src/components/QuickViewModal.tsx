@@ -10,15 +10,16 @@ export const QuickViewModal: React.FC = () => {
 
   if (!quickViewProduct) return null;
 
-  const activeVariant = quickViewProduct.variants?.find((v) => v.id === selectedVariantId) || 
-    quickViewProduct.variants?.[0] || {
-      id: 'v-def',
-      title: quickViewProduct.packSize,
-      size: quickViewProduct.packSize,
-      price: quickViewProduct.price,
-      regularPrice: quickViewProduct.regularPrice,
-      sku: quickViewProduct.sku,
-    };
+  const activeVariant = quickViewProduct.variants?.find((v, idx) => 
+    (v.id && v.id === selectedVariantId) || v.size === selectedVariantId || (v.sku && v.sku === selectedVariantId) || `v-${idx}` === selectedVariantId
+  ) || quickViewProduct.variants?.[0] || {
+    id: 'v-def',
+    title: quickViewProduct.packSize,
+    size: quickViewProduct.packSize,
+    price: quickViewProduct.price,
+    regularPrice: quickViewProduct.regularPrice,
+    sku: quickViewProduct.sku,
+  };
 
   const handleAddToCart = () => {
     addToCart(quickViewProduct, quantity, activeVariant);
@@ -118,19 +119,23 @@ export const QuickViewModal: React.FC = () => {
                     Pack Size:
                   </label>
                   <div className="flex flex-wrap gap-1.5">
-                    {quickViewProduct.variants.map((v) => (
-                      <button
-                        key={v.id}
-                        onClick={() => setSelectedVariantId(v.id)}
-                        className={`px-2.5 py-1 rounded-lg text-xs font-semibold border cursor-pointer ${
-                          activeVariant.id === v.id
-                            ? 'border-[#00355f] bg-[#eff4ff] text-[#00355f]'
-                            : 'border-slate-200 text-slate-600 hover:bg-slate-50'
-                        }`}
-                      >
-                        {v.size} - ₹{v.price}
-                      </button>
-                    ))}
+                    {quickViewProduct.variants.map((v, idx) => {
+                      const variantKey = v.id || v.sku || `${v.size}-${idx}`;
+                      const isSelected = activeVariant.size === v.size || (v.id && activeVariant.id === v.id);
+                      return (
+                        <button
+                          key={variantKey}
+                          onClick={() => setSelectedVariantId(v.id || v.size || `v-${idx}`)}
+                          className={`px-2.5 py-1 rounded-lg text-xs font-semibold border cursor-pointer ${
+                            isSelected
+                              ? 'border-[#00355f] bg-[#eff4ff] text-[#00355f]'
+                              : 'border-slate-200 text-slate-600 hover:bg-slate-50'
+                          }`}
+                        >
+                          {v.size} - ₹{v.price}
+                        </button>
+                      );
+                    })}
                   </div>
                 </div>
               )}

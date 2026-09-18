@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useStore } from '../context/StoreContext';
 import { Product } from '../types';
 import { 
@@ -19,13 +19,16 @@ import {
   Zap,
   Info,
   Layers,
-  ChevronRight
+  ChevronRight,
+  RefreshCw,
+  ImageIcon
 } from 'lucide-react';
 
 export const ProductView: React.FC = () => {
-  const { selectedProduct, products, addToCart, setCurrentRoute, setSelectedProduct, setIsCartDrawerOpen } = useStore();
+  const { selectedProduct, products, addToCart, setCurrentRoute, setSelectedProduct, setIsCartDrawerOpen, isLoadingLiveProduct } = useStore();
   const product: Product = selectedProduct || products[0];
 
+  const [activeImage, setActiveImage] = useState<string>(product.image);
   const [selectedVariantSize, setSelectedVariantSize] = useState<string>(
     product.variants?.[0]?.size || product.packSize
   );
@@ -33,13 +36,20 @@ export const ProductView: React.FC = () => {
   const [activeTab, setActiveTab] = useState<'desc' | 'usage' | 'safety' | 'reviews'>('desc');
   const [copiedLink, setCopiedLink] = useState(false);
 
+  useEffect(() => {
+    setActiveImage(product.image);
+    setSelectedVariantSize(product.variants?.[0]?.size || product.packSize);
+  }, [product.image, product.id]);
+
   const matchedVariant = product.variants?.find((v) => v.size === selectedVariantSize);
   const currentVariant = {
     size: matchedVariant?.size || product.packSize,
     price: matchedVariant?.price || product.price,
     regularPrice: matchedVariant?.mrp || matchedVariant?.regularPrice || product.regularPrice,
     mrp: matchedVariant?.mrp || matchedVariant?.regularPrice || product.regularPrice,
-    sku: product.sku,
+    sku: matchedVariant?.sku || product.sku,
+    weight: matchedVariant?.weight || product.weight,
+    dimensions: matchedVariant?.dimensions || product.dimensions,
     gift: matchedVariant?.gift || product.freebie,
     note: matchedVariant?.note,
   };
@@ -61,6 +71,8 @@ export const ProductView: React.FC = () => {
     .filter((p) => p.id !== product.id && (p.category === product.category || p.brand === product.brand))
     .slice(0, 4);
 
+  const galleryImages = Array.from(new Set([product.image, ...(product.gallery || [])])).filter(Boolean);
+
   return (
     <div className="w-full bg-[#f8f9ff] min-h-screen pb-16">
       
@@ -80,13 +92,21 @@ export const ProductView: React.FC = () => {
             <span className="text-[#0A2540] font-bold">{product.name}</span>
           </div>
 
-          <button
-            onClick={() => setCurrentRoute('shop')}
-            className="inline-flex items-center gap-1.5 text-xs text-[#00355f] hover:underline font-semibold cursor-pointer"
-          >
-            <ArrowLeft className="w-4 h-4" />
-            <span>Back to Products</span>
-          </button>
+          <div className="flex items-center gap-3">
+            {isLoadingLiveProduct && (
+              <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-blue-50 text-blue-700 text-[11px] font-semibold animate-pulse border border-blue-200">
+                <RefreshCw className="w-3 h-3 animate-spin" />
+                <span>Syncing live WooCommerce data...</span>
+              </span>
+            )}
+            <button
+              onClick={() => setCurrentRoute('shop')}
+              className="inline-flex items-center gap-1.5 text-xs text-[#00355f] hover:underline font-semibold cursor-pointer"
+            >
+              <ArrowLeft className="w-4 h-4" />
+              <span>Back to Products</span>
+            </button>
+          </div>
         </nav>
 
         {/* Product Details Main Card */}
@@ -95,7 +115,7 @@ export const ProductView: React.FC = () => {
             
             {/* Left Gallery / Main Image */}
             <div className="lg:col-span-5 flex flex-col gap-4">
-              <div className="relative bg-[#eff4ff] rounded-2xl p-6 flex items-center justify-center border border-slate-200/80 overflow-hidden">
+              <div className="relative bg-[#eff4ff] rounded-2xl p-6 flex items-center justify-center border border-slate-200/80 overflow-hidden min-h-[340px]">
                 {product.freebie && (
                   <div className="absolute top-4 left-4 z-10 flex flex-col gap-1">
                     <span className="bg-amber-400 text-slate-950 px-3 py-1 rounded-md text-xs font-black uppercase tracking-wider shadow-xs flex items-center gap-1">
@@ -106,12 +126,33 @@ export const ProductView: React.FC = () => {
                 )}
 
                 <img
-                  src={product.image}
+                  src={activeImage || product.image}
                   alt={product.name}
-                  className="w-full max-h-96 object-contain hover:scale-105 transition-transform duration-300"
+                  className="w-full max-h-96 object-contain hover:scale-105 transition-transform duration-300 rounded-lg"
                   referrerPolicy="no-referrer"
+                  onError={(e) => {
+                    // Fallback in case of broken remote image
+                    (e.target as HTMLImageElement).src = 'https://lh3.googleusercontent.com/aida-public/AB6AXuCWsqgCY-jIhZJv6Okv_M4F_bRMGmEwd9HhZ8Pwwv1wIZWBGzCmPegx9mE5ld8MYDnee9JDiR8IZHwpMqCbz1A3A9HilUlvpoHjLwKbOprquqRRgS9DBvehTZpPGbdsXfDWWccSZjIVqKrc4BhVST623U6qF_9-I4sHkseS4RtyjjA-Z19ju2MuIKmIZjfBbRg7LXVZvcy-dqXOapJ7hc5HPQvm4Fda9BIUsYAWmgen30EOiwHLESUK5A';
+                  }}
                 />
               </div>
+
+              {/* Gallery Thumbnails */}
+              {galleryImages.length > 1 && (
+                <div className="flex items-center gap-3 overflow-x-auto pb-2">
+                  {galleryImages.map((img, idx) => (
+                    <button
+                      key={idx}
+                      onClick={() => setActiveImage(img)}
+                      className={`w-16 h-16 rounded-xl border-2 p-1 overflow-hidden transition-all bg-[#eff4ff] shrink-0 cursor-pointer ${
+                        activeImage === img ? 'border-[#00355f] ring-2 ring-[#00355f]/20' : 'border-slate-200 hover:border-slate-400'
+                      }`}
+                    >
+                      <img src={img} alt={`${product.name} ${idx + 1}`} className="w-full h-full object-contain" />
+                    </button>
+                  ))}
+                </div>
+              )}
 
               {/* Lab Certification Guarantee Stamp */}
               <div className="p-4 rounded-xl bg-[#F0FDF4] border border-emerald-200 flex items-center gap-3">
@@ -140,7 +181,7 @@ export const ProductView: React.FC = () => {
                   <span className="text-xs text-slate-400">·</span>
                   <span className="text-xs font-semibold text-[#006e2d] flex items-center gap-1">
                     <CheckCircle2 className="w-3.5 h-3.5" />
-                    <span>In Stock (Chennai Warehouse) · Ready to Dispatch in 24 Hrs</span>
+                    <span>{product.stockStatus || 'In Stock (Chennai Warehouse)'} · Ready to Dispatch in 24 Hrs</span>
                   </span>
                 </div>
 
@@ -158,7 +199,26 @@ export const ProductView: React.FC = () => {
                   <span>SKU: <strong className="text-slate-700 font-mono">{currentVariant.sku}</strong></span>
                   <span>·</span>
                   <span>Category: <strong className="text-slate-700">{product.category}</strong></span>
+                  {currentVariant.weight && (
+                    <>
+                      <span>·</span>
+                      <span>Weight: <strong className="text-slate-700">{currentVariant.weight}</strong></span>
+                    </>
+                  )}
+                  {currentVariant.dimensions && (
+                    <>
+                      <span>·</span>
+                      <span>Dimensions: <strong className="text-slate-700">{currentVariant.dimensions}</strong></span>
+                    </>
+                  )}
                 </div>
+
+                {/* Live WooCommerce Short Description */}
+                {product.shortDescription && (
+                  <div className="mt-3 text-xs sm:text-sm text-slate-600 bg-slate-50 p-3.5 rounded-xl border border-slate-200/80 leading-relaxed">
+                    {product.shortDescription}
+                  </div>
+                )}
               </div>
 
               {/* Combo Highlight Banner */}
@@ -180,12 +240,16 @@ export const ProductView: React.FC = () => {
                   <span className="text-3xl font-headline font-black text-[#00355f]">
                     ₹{currentVariant.price}
                   </span>
-                  <span className="text-sm text-slate-400 line-through">
-                    ₹{currentVariant.regularPrice}
-                  </span>
-                  <span className="px-2.5 py-1 rounded bg-[#006e2d] text-white text-xs font-bold">
-                    Save ₹{currentVariant.regularPrice - currentVariant.price} ({Math.round(((currentVariant.regularPrice - currentVariant.price) / currentVariant.regularPrice) * 100)}% OFF)
-                  </span>
+                  {currentVariant.regularPrice > currentVariant.price && (
+                    <>
+                      <span className="text-sm text-slate-400 line-through">
+                        ₹{currentVariant.regularPrice}
+                      </span>
+                      <span className="px-2.5 py-1 rounded bg-[#006e2d] text-white text-xs font-bold">
+                        Save ₹{currentVariant.regularPrice - currentVariant.price} ({Math.round(((currentVariant.regularPrice - currentVariant.price) / currentVariant.regularPrice) * 100)}% OFF)
+                      </span>
+                    </>
+                  )}
                 </div>
                 <p className="text-[11px] text-slate-500 mt-1">
                   Inclusive of all taxes &amp; GST. Free Express Delivery in Chennai on orders above ₹499.
@@ -325,8 +389,8 @@ export const ProductView: React.FC = () => {
           <div className="mt-12 pt-8 border-t border-slate-200">
             <div className="flex flex-wrap gap-2 border-b border-slate-200 pb-2">
               {[
-                { id: 'desc', label: 'Description & Lab Certification' },
-                { id: 'usage', label: 'Directions & Dilution Ratio' },
+                { id: 'desc', label: 'Description & Details' },
+                { id: 'usage', label: 'Directions & Dilution' },
                 { id: 'safety', label: 'Safety Data & Ingredients' },
                 { id: 'reviews', label: `Customer Reviews (${product.reviewCount})` },
               ].map((tab) => (
@@ -347,7 +411,9 @@ export const ProductView: React.FC = () => {
             <div className="pt-6 text-xs sm:text-sm text-slate-700 leading-relaxed max-w-4xl">
               {activeTab === 'desc' && (
                 <div className="space-y-4">
-                  <p>{product.description}</p>
+                  <div className="prose prose-sm max-w-none text-slate-700">
+                    {product.description}
+                  </div>
                   
                   <div className="bg-[#eff4ff] p-4 rounded-xl border border-slate-200 space-y-2">
                     <h4 className="font-headline font-bold text-sm text-[#00355f]">
@@ -361,30 +427,48 @@ export const ProductView: React.FC = () => {
               )}
 
               {activeTab === 'usage' && (
-                <div className="space-y-3">
+                <div className="space-y-4">
                   <h4 className="font-headline font-bold text-sm text-[#0A2540]">
-                    Recommended Application &amp; Dilution
+                    Recommended Application &amp; Dilution Instructions
                   </h4>
-                  <p>{product.howToUse}</p>
-                  <ul className="list-disc list-inside space-y-1 text-xs text-slate-600">
-                    <li>For light daily cleaning: Dilute 1 cap (20ml) in half bucket of clean water.</li>
-                    <li>For heavy grease &amp; stubborn grime: Apply undiluted, wait 2-3 minutes, then scrub and rinse thoroughly.</li>
-                    <li>Store in cool, dry location away from direct sunlight.</li>
-                  </ul>
+                  {product.howToUse ? (
+                    <div 
+                      className="prose prose-sm max-w-none text-slate-700 text-xs sm:text-sm leading-relaxed"
+                      dangerouslySetInnerHTML={{ __html: product.howToUse }}
+                    />
+                  ) : (
+                    <>
+                      <p>Apply as directed or dilute according to surface soil load.</p>
+                      <ul className="list-disc list-inside space-y-1 text-xs text-slate-600">
+                        <li>For light daily cleaning: Dilute 1 cap (20ml) in half bucket of clean water.</li>
+                        <li>For heavy grease &amp; stubborn grime: Apply undiluted, wait 2-3 minutes, then scrub and rinse thoroughly.</li>
+                        <li>Store in cool, dry location away from direct sunlight.</li>
+                      </ul>
+                    </>
+                  )}
                 </div>
               )}
 
               {activeTab === 'safety' && (
-                <div className="space-y-3">
+                <div className="space-y-4">
                   <h4 className="font-headline font-bold text-sm text-[#0A2540]">
                     Material Safety &amp; Active Ingredients
                   </h4>
-                  <p className="text-xs text-slate-600">
-                    Contains biodegradable plant-derived surfactants, natural citrus/floral essential oils, water softening agents, and certified food-safe colorants. Free from caustic soda, hydrochloric acid, and heavy bleach toxins.
-                  </p>
-                  <div className="p-3 bg-amber-50 border border-amber-200 rounded-lg text-xs text-amber-900">
-                    <strong>Precautionary note:</strong> Keep out of reach of children. In case of direct eye contact, flush with clean water for 10 minutes.
-                  </div>
+                  {product.safetyData ? (
+                    <div 
+                      className="prose prose-sm max-w-none text-slate-700 text-xs sm:text-sm leading-relaxed"
+                      dangerouslySetInnerHTML={{ __html: product.safetyData }}
+                    />
+                  ) : (
+                    <>
+                      <p className="text-xs text-slate-600">
+                        Contains biodegradable plant-derived surfactants, natural citrus/floral essential oils, water softening agents, and certified food-safe colorants. Free from caustic soda, hydrochloric acid, and heavy bleach toxins.
+                      </p>
+                      <div className="p-3 bg-amber-50 border border-amber-200 rounded-lg text-xs text-amber-900">
+                        <strong>Precautionary note:</strong> Keep out of reach of children. In case of direct eye contact, flush with clean water for 10 minutes.
+                      </div>
+                    </>
+                  )}
                 </div>
               )}
 

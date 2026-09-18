@@ -9,24 +9,37 @@ export interface ProductVariant {
   gift?: string;
   note?: string;
   inStock?: boolean;
+  weight?: string;
+  length?: string;
+  dimensions?: string;
+}
+
+export interface ProductAttribute {
+  name: string;
+  options: string[];
 }
 
 export interface Product {
   id: string;
   name: string;
   slug: string;
-  brand: 'BOZZ' | 'MORNING SHINE' | 'SKY FRESH' | 'POWER RIDE' | 'ESSENDAAR BULK' | 'ACCESSORIES';
-  category: 'Kitchen Care' | 'Laundry Care' | 'Surface Care' | 'Sanitation' | 'Vehicle Care' | 'Institutional Bulk' | 'Accessories';
+  brand: 'BOZZ' | 'MORNING SHINE' | 'SKY FRESH' | 'POWER RIDE' | 'ESSENDAAR BULK' | 'ESSENDAAR STATIONERY' | 'ESSENDAAR SPORTS' | 'ESSENDAAR SAFETY' | 'ACCESSORIES' | string;
+  category: 'Kitchen Care' | 'Laundry Care' | 'Surface Care' | 'Sanitation' | 'Vehicle Care' | 'Institutional Bulk' | 'Accessories' | 'Notebooks & Registers' | 'Office Stationery' | 'Footballs & Basketballs' | 'Badminton & Games' | 'Sports Accessories' | 'Fire Safety' | 'Industrial Safety' | 'Personal Protection' | string;
+  parentCategory?: 'Cleaning Products' | 'Stationery Products' | 'Sports Products' | 'Safety Products' | string;
+  subCategory?: string;
   price: number;
   regularPrice: number;
   packSize: string;
+  weight?: string;
+  length?: string;
+  dimensions?: string;
   rating: number;
   reviewCount: number;
   image: string;
   gallery: string[];
   shortDescription: string;
   description: string;
-  stockStatus: 'In Stock (Factory Direct)' | 'In Stock' | 'High Stock in Warehouse';
+  stockStatus: string;
   sku: string;
   badge?: string;
   freebie?: string;
@@ -36,7 +49,10 @@ export interface Product {
   fragrance?: string;
   shelfLife?: string;
   howToUse?: string;
+  safetyData?: string;
+  ingredients?: string;
   variants?: ProductVariant[];
+  attributes?: ProductAttribute[];
   labCertified?: boolean;
 }
 
@@ -53,6 +69,7 @@ export type AppRoute =
   | 'contact' 
   | 'checkout' 
   | 'order-confirmation'
+  | 'home-care-cleaning'
   | 'facility-management'
   | 'manpower-support'
   | 'institutional-supplies'

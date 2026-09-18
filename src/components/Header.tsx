@@ -32,7 +32,8 @@ export const Header: React.FC = () => {
 
   const navLinks = [
     { label: 'Home', route: 'home' as const },
-    { label: 'Shop / Products', route: 'shop' as const },
+    { label: 'Shop Catalog', route: 'shop' as const },
+    { label: 'Home Care', route: 'home-care-cleaning' as const },
     { label: 'Facility Management', route: 'facility-management' as const },
     { label: 'Manpower Support', route: 'manpower-support' as const },
     { label: 'Institutional Supplies', route: 'institutional-supplies' as const },

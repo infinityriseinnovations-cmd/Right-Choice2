@@ -1,5 +1,8 @@
 import React from 'react';
 import { useStore } from '../context/StoreContext';
+
+const sivaKrishnanPortrait = '/assets/siva-krishnan.jpg';
+
 import { 
   ShieldCheck, 
   Award, 
@@ -25,7 +28,11 @@ import {
   School,
   Hotel,
   Store,
-  Briefcase
+  Briefcase,
+  GraduationCap,
+  Quote,
+  MessageCircle,
+  Check
 } from 'lucide-react';
 
 export const AboutUsView: React.FC = () => {
@@ -132,49 +139,171 @@ export const AboutUsView: React.FC = () => {
           <span className="text-[#00355f] font-bold">About Us</span>
         </div>
 
-        {/* Hero Section */}
-        <div className="bg-[#0A2540] rounded-3xl text-white p-8 sm:p-14 mb-12 relative overflow-hidden shadow-lg">
-          <div className="max-w-3xl relative z-10">
-            <div className="flex flex-wrap items-center gap-2 mb-4">
-              <span className="bg-[#006e2d] text-white px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider flex items-center gap-1.5">
-                <Award className="w-3.5 h-3.5" />
-                <span>Est. June 2021 • Mangadu, Chennai</span>
-              </span>
-              <span className="bg-white/10 text-slate-300 px-3 py-1 rounded-full text-xs font-semibold">
-                ISO 9001:2015 Certified
-              </span>
-            </div>
-            
-            <h1 className="text-3xl sm:text-5xl font-black font-headline tracking-tight leading-tight mb-3">
-              ESSENDAAR SUPPLIERS
-            </h1>
-            <p className="text-emerald-400 font-headline font-bold text-lg sm:text-xl tracking-wide mb-6">
-              Clean Solutions. Reliable Services.
-            </p>
-            
-            <p className="text-slate-300 text-sm sm:text-base leading-relaxed mb-8">
-              ESSENDAAR SUPPLIERS is a premier manufacturer and integrated service partner based in Mangadu, Chennai. We deliver quality Home Care Cleaning Products, Turnkey Facility Management, Vetted Manpower Support, and Institutional Supplies to homes, schools, hospitals, and commercial complexes across Tamil Nadu.
-            </p>
+        {/* Hero Section with Founder/Executive Card at Top-Right */}
+        <div className="bg-[#0A2540] rounded-3xl text-white p-6 sm:p-10 lg:p-12 mb-12 relative overflow-hidden shadow-xl border border-slate-700/60">
+          
+          {/* Subtle decorative background ambient glow */}
+          <div className="absolute top-0 right-0 w-96 h-96 bg-[#00355f]/40 rounded-full blur-3xl pointer-events-none -mr-20 -mt-20" />
+          <div className="absolute bottom-0 left-0 w-80 h-80 bg-emerald-500/10 rounded-full blur-3xl pointer-events-none -ml-20 -mb-20" />
 
-            {/* Quick Contact Bar */}
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 pt-6 border-t border-slate-700/60 text-xs">
-              <a href="tel:+919787979757" className="flex items-center gap-2 text-slate-300 hover:text-white transition-colors">
-                <PhoneCall className="w-4 h-4 text-emerald-400 shrink-0" />
-                <span>+91 97879 79757</span>
-              </a>
-              <a href="mailto:essendaargroup@gmail.com" className="flex items-center gap-2 text-slate-300 hover:text-white transition-colors">
-                <Mail className="w-4 h-4 text-sky-400 shrink-0" />
-                <span>essendaargroup@gmail.com</span>
-              </a>
-              <div className="flex items-center gap-2 text-slate-300">
-                <MapPin className="w-4 h-4 text-amber-400 shrink-0" />
-                <span>Mangadu, Chennai</span>
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-10 items-center relative z-10">
+            
+            {/* Left Column (Company Overview & Direct Contacts) */}
+            <div className="lg:col-span-7 flex flex-col justify-between">
+              <div>
+                <div className="flex flex-wrap items-center gap-2 mb-4">
+                  <span className="bg-[#006e2d] text-white px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider flex items-center gap-1.5 shadow-xs">
+                    <Award className="w-3.5 h-3.5" />
+                    <span>Est. June 2021 • Mangadu, Chennai</span>
+                  </span>
+                  <span className="bg-white/10 text-slate-300 px-3 py-1 rounded-full text-xs font-semibold border border-white/10">
+                    ISO 9001:2015 Certified
+                  </span>
+                </div>
+                
+                <h1 className="text-3xl sm:text-4xl lg:text-5xl font-black font-headline tracking-tight leading-tight mb-2">
+                  ESSENDAAR SUPPLIERS
+                </h1>
+                <p className="text-emerald-400 font-headline font-bold text-base sm:text-xl tracking-wide mb-4">
+                  Clean Solutions. Reliable Services.
+                </p>
+                
+                <p className="text-slate-300 text-xs sm:text-sm leading-relaxed mb-6">
+                  ESSENDAAR SUPPLIERS is a premier manufacturer and integrated service partner founded in Mangadu, Chennai. We deliver certified Home Care Cleaning Formulations, Turnkey Facility Management, Vetted Manpower Support, and Institutional Supplies to homes, schools, hospitals, IT parks, and commercial complexes across Tamil Nadu.
+                </p>
+
+                {/* Key Metrics / Highlights */}
+                <div className="grid grid-cols-3 gap-3 mb-6 p-3.5 rounded-2xl bg-white/5 border border-white/10 text-center">
+                  <div>
+                    <div className="text-base sm:text-lg font-black font-headline text-white">100%</div>
+                    <div className="text-[10px] sm:text-[11px] text-slate-300">Lab Tested Formulations</div>
+                  </div>
+                  <div className="border-x border-white/10">
+                    <div className="text-base sm:text-lg font-black font-headline text-emerald-400">4 Core</div>
+                    <div className="text-[10px] sm:text-[11px] text-slate-300">Business Verticals</div>
+                  </div>
+                  <div>
+                    <div className="text-base sm:text-lg font-black font-headline text-amber-400">1000+</div>
+                    <div className="text-[10px] sm:text-[11px] text-slate-300">Trusted Clients</div>
+                  </div>
+                </div>
               </div>
-              <div className="flex items-center gap-2 text-slate-300">
-                <Globe className="w-4 h-4 text-indigo-400 shrink-0" />
-                <span>www.rightchoiceindia.com</span>
+
+              {/* Quick Contact Bar */}
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5 pt-4 border-t border-slate-700/80 text-xs">
+                <a 
+                  href="tel:+919787979757" 
+                  className="flex items-center gap-2 text-slate-300 hover:text-white transition-colors bg-white/5 p-2 rounded-xl border border-white/5"
+                >
+                  <PhoneCall className="w-4 h-4 text-emerald-400 shrink-0" />
+                  <span className="font-semibold">+91 97879 79757</span>
+                </a>
+                <a 
+                  href="mailto:essendaargroup@gmail.com" 
+                  className="flex items-center gap-2 text-slate-300 hover:text-white transition-colors bg-white/5 p-2 rounded-xl border border-white/5"
+                >
+                  <Mail className="w-4 h-4 text-sky-400 shrink-0" />
+                  <span className="truncate">essendaargroup@gmail.com</span>
+                </a>
+                <div className="flex items-center gap-2 text-slate-300 bg-white/5 p-2 rounded-xl border border-white/5">
+                  <MapPin className="w-4 h-4 text-amber-400 shrink-0" />
+                  <span className="truncate">Mangadu, Chennai, TN</span>
+                </div>
+                <div className="flex items-center gap-2 text-slate-300 bg-white/5 p-2 rounded-xl border border-white/5">
+                  <Globe className="w-4 h-4 text-indigo-400 shrink-0" />
+                  <span className="truncate">www.rightchoiceindia.com</span>
+                </div>
               </div>
             </div>
+
+            {/* Right Column: Founder & Leadership Card (D Siva Krishnan, B.E) - Proportional & Compact Height */}
+            <div className="lg:col-span-5 flex justify-center lg:justify-end">
+              <div className="bg-white text-slate-900 rounded-2xl p-3.5 sm:p-4 shadow-xl border-2 border-amber-400/90 max-w-xs sm:max-w-sm w-full relative">
+                
+                {/* Gold Rimmed Portrait Container - aspect-square to view full image without cropping */}
+                <div className="p-1 rounded-xl bg-gradient-to-br from-amber-400 via-amber-300 to-amber-500 shadow-xs">
+                  <div className="relative overflow-hidden rounded-lg bg-slate-900 aspect-square w-full flex items-center justify-center">
+                    
+                    {/* Executive Portrait displaying full image */}
+                    <img
+                      src={sivaKrishnanPortrait}
+                      alt="D Siva Krishnan, B.E - Founder & Managing Director, Essendaar Suppliers"
+                      className="w-full h-full object-cover object-center transition-transform duration-500 hover:scale-105"
+                      referrerPolicy="no-referrer"
+                    />
+
+                    {/* Verified Leadership Badge */}
+                    <div className="absolute top-2 right-2 z-10">
+                      <span className="bg-[#006e2d] text-white text-[9px] font-black uppercase px-2 py-0.5 rounded-full shadow-xs flex items-center gap-1 border border-white/20">
+                        <Award className="w-2.5 h-2.5 text-amber-300" />
+                        <span>Founder &amp; MD</span>
+                      </span>
+                    </div>
+
+                    <div className="absolute bottom-0 inset-x-0 bg-gradient-to-t from-slate-950/85 via-slate-950/40 to-transparent px-2.5 py-1.5 flex items-end justify-between">
+                      <span className="text-[9px] font-bold text-amber-300 tracking-wider uppercase font-mono">
+                        Essendaar Group
+                      </span>
+                      <span className="text-[9px] text-white/90 font-medium">
+                        Chennai, India
+                      </span>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Name Badge */}
+                <div className="bg-[#00355f] text-white py-1.5 px-2.5 rounded-lg text-center shadow-xs mt-2.5 flex items-center justify-center gap-1.5">
+                  <GraduationCap className="w-3.5 h-3.5 text-amber-400 shrink-0" />
+                  <h2 className="text-xs sm:text-sm font-black font-headline tracking-wide">
+                    D Siva Krishnan, B.E
+                  </h2>
+                </div>
+
+                {/* Core Domains */}
+                <p className="text-[11px] font-bold text-center text-slate-700 mt-1.5 px-1 leading-snug">
+                  Facility Management, Manufacturer and Distributor of Home Care Products.
+                </p>
+
+                {/* Styled Graphical Accent Line with Orange Nodes */}
+                <div className="flex items-center justify-center my-2 px-3">
+                  <span className="w-1.5 h-1.5 rounded-full bg-orange-500 shrink-0 shadow-xs"></span>
+                  <span className="h-0.5 bg-gradient-to-r from-orange-400 to-orange-500 flex-1 mx-1.5"></span>
+                  <span className="w-1.5 h-1.5 rounded-full bg-orange-500 shrink-0 shadow-xs"></span>
+                </div>
+
+                {/* Guiding Philosophy Motto */}
+                <div className="text-center px-1">
+                  <p className="text-[11px] font-black text-slate-900 leading-snug font-headline">
+                    Driving <span className="text-[#006e2d]">Clean</span> &amp; <span className="text-orange-600">Reliable Solutions</span>
+                  </p>
+                  <p className="text-[10px] font-semibold text-slate-600 mt-0.5 leading-tight">
+                    for a Safer, Healthier &amp; Better Tomorrow.
+                  </p>
+                </div>
+
+                {/* Action Buttons */}
+                <div className="mt-2.5 pt-2 border-t border-slate-100 grid grid-cols-2 gap-1.5">
+                  <a
+                    href="tel:+919787979757"
+                    className="py-1.5 px-2 bg-[#006e2d] hover:bg-[#14532D] text-white rounded-lg text-[10px] font-bold text-center transition-colors flex items-center justify-center gap-1 shadow-xs"
+                  >
+                    <PhoneCall className="w-3 h-3" />
+                    <span>Direct Call</span>
+                  </a>
+                  <a
+                    href="https://wa.me/919787979757?text=Hello%20D%20Siva%20Krishnan,%20I%20would%20like%20to%20inquire%20about%20Essendaar%20Suppliers"
+                    target="_blank"
+                    rel="noreferrer"
+                    className="py-1.5 px-2 bg-[#00355f] hover:bg-[#0A2540] text-white rounded-lg text-[10px] font-bold text-center transition-colors flex items-center justify-center gap-1 shadow-xs"
+                  >
+                    <MessageCircle className="w-3 h-3 text-emerald-400" />
+                    <span>WhatsApp</span>
+                  </a>
+                </div>
+
+              </div>
+            </div>
+
           </div>
         </div>
 
@@ -460,6 +589,53 @@ export const AboutUsView: React.FC = () => {
                 </div>
               );
             })}
+          </div>
+        </div>
+
+        {/* Founder & Managing Director's Message */}
+        <div className="bg-white rounded-3xl p-6 sm:p-8 border border-slate-200 shadow-xs mb-16 relative overflow-hidden">
+          <div className="flex flex-col sm:flex-row items-center gap-6 sm:gap-8">
+            <div className="shrink-0 flex flex-col items-center text-center">
+              <div className="p-1 rounded-2xl bg-gradient-to-br from-amber-400 via-amber-300 to-amber-500 shadow-sm w-28 sm:w-36">
+                <div className="rounded-xl overflow-hidden aspect-square bg-slate-900">
+                  <img
+                    src={sivaKrishnanPortrait}
+                    alt="D Siva Krishnan, B.E - Founder & Managing Director"
+                    className="w-full h-full object-cover object-center"
+                    referrerPolicy="no-referrer"
+                  />
+                </div>
+              </div>
+              <h4 className="font-headline font-black text-xs sm:text-sm text-[#0A2540] mt-2.5">D Siva Krishnan, B.E</h4>
+              <p className="text-[10px] sm:text-[11px] font-bold text-[#006e2d]">Founder &amp; Managing Director</p>
+            </div>
+
+            <div className="flex-1">
+              <div className="flex items-center gap-2 text-amber-600 mb-2">
+                <Quote className="w-5 h-5 rotate-180 text-amber-500" />
+                <span className="text-[11px] font-bold uppercase tracking-widest text-slate-500">Founder's Message &amp; Vision</span>
+              </div>
+              <h3 className="text-lg sm:text-xl font-black font-headline text-[#0A2540] mb-2.5">
+                "Driving Clean &amp; Reliable Solutions for a Safer, Healthier &amp; Better Tomorrow."
+              </h3>
+              <p className="text-xs sm:text-sm text-slate-600 leading-relaxed mb-3.5">
+                Since our inception in June 2021, Essendaar Suppliers has operated with a single guiding mission: to bring engineering precision, chemical reliability, and disciplined human execution to facility management and home care manufacturing. Whether delivering laboratory-tested cleaning formulations or deploying verified housekeeping personnel, we stand by uncompromising quality and customer trust across Chennai and Tamil Nadu.
+              </p>
+              <div className="flex flex-wrap items-center gap-2 sm:gap-3 text-xs font-bold text-slate-700">
+                <span className="flex items-center gap-1.5 text-[#006e2d] bg-emerald-50 px-2.5 py-1 rounded-full border border-emerald-200 text-[11px]">
+                  <CheckCircle2 className="w-3.5 h-3.5" />
+                  <span>ISO 9001:2015 Process Standards</span>
+                </span>
+                <span className="flex items-center gap-1.5 text-[#00355f] bg-sky-50 px-2.5 py-1 rounded-full border border-sky-200 text-[11px]">
+                  <FlaskConical className="w-3.5 h-3.5" />
+                  <span>Tamilnadu Test House Certified</span>
+                </span>
+                <span className="flex items-center gap-1.5 text-amber-800 bg-amber-50 px-2.5 py-1 rounded-full border border-amber-200 text-[11px]">
+                  <Users className="w-3.5 h-3.5" />
+                  <span>100% Vetted Manpower</span>
+                </span>
+              </div>
+            </div>
           </div>
         </div>
 

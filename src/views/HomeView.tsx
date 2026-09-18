@@ -677,16 +677,238 @@ export const HomeView: React.FC = () => {
         </div>
       </section>
 
+      {/* SECTION: OUR PRODUCT CATEGORIES (Matching flyer structure) */}
+      <section className="py-14 sm:py-16 bg-white border-b border-slate-200/80" id="product-categories">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6">
+          <div className="text-center max-w-3xl mx-auto mb-12">
+            <span className="px-3 py-1 rounded-full bg-[#EBF3FA] text-[#00355f] text-xs font-bold uppercase tracking-wider font-headline">
+              Product Divisions
+            </span>
+            <h2 className="text-2xl sm:text-4xl font-headline font-black text-[#0A2540] mt-3">
+              Our Product Categories
+            </h2>
+            <p className="text-xs sm:text-sm text-slate-600 mt-2">
+              Comprehensive manufacturing and wholesale supply spanning institutional hygiene, educational stationery, sports gear, and certified safety equipment.
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+            
+            {/* Category 1: CLEANING PRODUCTS */}
+            <div className="bg-[#f8f9ff] rounded-2xl border border-slate-200 overflow-hidden shadow-xs hover:shadow-lg transition-all flex flex-col justify-between group">
+              <div>
+                <div className="h-44 bg-slate-100 relative overflow-hidden">
+                  <img 
+                    src="https://lh3.googleusercontent.com/aida-public/AB6AXuD2P_UibsV3ZhGXsAcsB37uEUVhwZmAtw6X64bTHyJTSv3vcte8d4mVnOuk70dX00JyWWAH3xRK-SSxKFzwIJ7OWdRNANmEQIuxFe9Hr53fjTLFl8ScBj75f_DyfvEfNamWMMr5jMT6qixQytqZkjYVUJAXwYcG45CDLaw41nw1ZVp3Fr2pJ9GwHSrUcu65KuIU63c9yNnNTZ1Umyuu4OZCQlC_vuQ5R2ib9LCHsZ-VSRIwh5Byz52anQ" 
+                    alt="Cleaning Products" 
+                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                    referrerPolicy="no-referrer"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-[#0A2540]/80 via-transparent to-transparent flex items-end p-4">
+                    <span className="text-[10px] font-bold uppercase tracking-wider bg-[#006e2d] text-white px-2 py-0.5 rounded">
+                      Manufactured In Chennai
+                    </span>
+                  </div>
+                </div>
+
+                <div className="p-5">
+                  <div className="flex items-center gap-2 mb-1">
+                    <span className="w-6 h-6 rounded-full bg-[#00355f] text-white text-xs font-bold flex items-center justify-center">1</span>
+                    <h3 className="font-headline font-black text-lg text-[#0A2540]">CLEANING PRODUCTS</h3>
+                  </div>
+                  <p className="text-xs font-bold text-[#006e2d] italic mb-3">"Clean Homes. Healthy Lives."</p>
+                  
+                  <div className="space-y-1.5 text-xs text-slate-600 mb-4">
+                    <p className="font-semibold text-slate-800">Key Range:</p>
+                    <div className="flex flex-wrap gap-1.5">
+                      {['Detergents', 'Dishwash Gels', 'Floor Cleaners', 'Toilet Cleaners', 'Glass Cleaners', 'Hand Wash', 'Sanitizers', '50L Drums'].map((item, i) => (
+                        <span key={i} className="bg-white border border-slate-200 text-slate-700 px-2 py-0.5 rounded text-[11px]">
+                          {item}
+                        </span>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div className="p-5 pt-0">
+                <button
+                  onClick={() => {
+                    setCurrentRoute('shop');
+                    window.scrollTo({ top: 0, behavior: 'smooth' });
+                  }}
+                  className="w-full py-2.5 rounded-xl bg-[#00355f] hover:bg-[#0A2540] text-white text-xs font-bold flex items-center justify-center gap-1.5 transition-colors cursor-pointer"
+                >
+                  <span>Browse Cleaning Products</span>
+                  <ArrowRight className="w-3.5 h-3.5" />
+                </button>
+              </div>
+            </div>
+
+            {/* Category 2: STATIONERY PRODUCTS */}
+            <div className="bg-[#f8f9ff] rounded-2xl border border-slate-200 overflow-hidden shadow-xs hover:shadow-lg transition-all flex flex-col justify-between group">
+              <div>
+                <div className="h-44 bg-slate-100 relative overflow-hidden">
+                  <img 
+                    src="https://images.unsplash.com/photo-1544716278-ca5e3f4abd8c?auto=format&fit=crop&w=800&q=80" 
+                    alt="Stationery Products" 
+                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-[#0A2540]/80 via-transparent to-transparent flex items-end p-4">
+                    <span className="text-[10px] font-bold uppercase tracking-wider bg-amber-500 text-slate-950 px-2 py-0.5 rounded">
+                      School &amp; Office Wholesale
+                    </span>
+                  </div>
+                </div>
+
+                <div className="p-5">
+                  <div className="flex items-center gap-2 mb-1">
+                    <span className="w-6 h-6 rounded-full bg-amber-600 text-white text-xs font-bold flex items-center justify-center">2</span>
+                    <h3 className="font-headline font-black text-lg text-[#0A2540]">STATIONERY PRODUCTS</h3>
+                  </div>
+                  <p className="text-xs font-bold text-amber-700 italic mb-3">"Learn Today. Build Tomorrow."</p>
+                  
+                  <div className="space-y-1.5 text-xs text-slate-600 mb-4">
+                    <p className="font-semibold text-slate-800">Key Range:</p>
+                    <div className="flex flex-wrap gap-1.5">
+                      {['Notebooks', 'Registers', 'Exam Pads', 'Pens & Markers', 'Office Files', 'Copier Paper', 'Whiteboards'].map((item, i) => (
+                        <span key={i} className="bg-white border border-slate-200 text-slate-700 px-2 py-0.5 rounded text-[11px]">
+                          {item}
+                        </span>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div className="p-5 pt-0">
+                <button
+                  onClick={() => {
+                    setCurrentRoute('shop');
+                    window.scrollTo({ top: 0, behavior: 'smooth' });
+                  }}
+                  className="w-full py-2.5 rounded-xl bg-amber-600 hover:bg-amber-700 text-white text-xs font-bold flex items-center justify-center gap-1.5 transition-colors cursor-pointer"
+                >
+                  <span>Browse Stationery Products</span>
+                  <ArrowRight className="w-3.5 h-3.5" />
+                </button>
+              </div>
+            </div>
+
+            {/* Category 3: SPORTS PRODUCTS */}
+            <div className="bg-[#f8f9ff] rounded-2xl border border-slate-200 overflow-hidden shadow-xs hover:shadow-lg transition-all flex flex-col justify-between group">
+              <div>
+                <div className="h-44 bg-slate-100 relative overflow-hidden">
+                  <img 
+                    src="https://images.unsplash.com/photo-1579952363873-27f3bade9f55?auto=format&fit=crop&w=800&q=80" 
+                    alt="Sports Products" 
+                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-[#0A2540]/80 via-transparent to-transparent flex items-end p-4">
+                    <span className="text-[10px] font-bold uppercase tracking-wider bg-emerald-600 text-white px-2 py-0.5 rounded">
+                      Tournament Regulation
+                    </span>
+                  </div>
+                </div>
+
+                <div className="p-5">
+                  <div className="flex items-center gap-2 mb-1">
+                    <span className="w-6 h-6 rounded-full bg-emerald-700 text-white text-xs font-bold flex items-center justify-center">3</span>
+                    <h3 className="font-headline font-black text-lg text-[#0A2540]">SPORTS PRODUCTS</h3>
+                  </div>
+                  <p className="text-xs font-bold text-emerald-800 italic mb-3">"Play Healthy. Grow Stronger."</p>
+                  
+                  <div className="space-y-1.5 text-xs text-slate-600 mb-4">
+                    <p className="font-semibold text-slate-800">Key Range:</p>
+                    <div className="flex flex-wrap gap-1.5">
+                      {['Footballs', 'Basketballs', 'Volleyballs', 'Badminton Sets', 'Training Cones', 'Dumbbells', 'Sports Kits'].map((item, i) => (
+                        <span key={i} className="bg-white border border-slate-200 text-slate-700 px-2 py-0.5 rounded text-[11px]">
+                          {item}
+                        </span>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div className="p-5 pt-0">
+                <button
+                  onClick={() => {
+                    setCurrentRoute('shop');
+                    window.scrollTo({ top: 0, behavior: 'smooth' });
+                  }}
+                  className="w-full py-2.5 rounded-xl bg-emerald-700 hover:bg-emerald-800 text-white text-xs font-bold flex items-center justify-center gap-1.5 transition-colors cursor-pointer"
+                >
+                  <span>Browse Sports Products</span>
+                  <ArrowRight className="w-3.5 h-3.5" />
+                </button>
+              </div>
+            </div>
+
+            {/* Category 4: SAFETY PRODUCTS */}
+            <div className="bg-[#f8f9ff] rounded-2xl border border-slate-200 overflow-hidden shadow-xs hover:shadow-lg transition-all flex flex-col justify-between group">
+              <div>
+                <div className="h-44 bg-slate-100 relative overflow-hidden">
+                  <img 
+                    src="https://images.unsplash.com/photo-1589939705384-5185137a7f0f?auto=format&fit=crop&w=800&q=80" 
+                    alt="Safety Products" 
+                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-[#0A2540]/80 via-transparent to-transparent flex items-end p-4">
+                    <span className="text-[10px] font-bold uppercase tracking-wider bg-rose-600 text-white px-2 py-0.5 rounded">
+                      ISI &amp; CE Certified
+                    </span>
+                  </div>
+                </div>
+
+                <div className="p-5">
+                  <div className="flex items-center gap-2 mb-1">
+                    <span className="w-6 h-6 rounded-full bg-rose-700 text-white text-xs font-bold flex items-center justify-center">4</span>
+                    <h3 className="font-headline font-black text-lg text-[#0A2540]">SAFETY PRODUCTS</h3>
+                  </div>
+                  <p className="text-xs font-bold text-rose-800 italic mb-3">"Safety Today. A Safer Tomorrow."</p>
+                  
+                  <div className="space-y-1.5 text-xs text-slate-600 mb-4">
+                    <p className="font-semibold text-slate-800">Key Range:</p>
+                    <div className="flex flex-wrap gap-1.5">
+                      {['Fire Extinguishers', 'Safety Helmets', 'Nitrile Gloves', 'High-Vis Vests', 'First Aid Kits', 'Caution Boards'].map((item, i) => (
+                        <span key={i} className="bg-white border border-slate-200 text-slate-700 px-2 py-0.5 rounded text-[11px]">
+                          {item}
+                        </span>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div className="p-5 pt-0">
+                <button
+                  onClick={() => {
+                    setCurrentRoute('shop');
+                    window.scrollTo({ top: 0, behavior: 'smooth' });
+                  }}
+                  className="w-full py-2.5 rounded-xl bg-rose-700 hover:bg-rose-800 text-white text-xs font-bold flex items-center justify-center gap-1.5 transition-colors cursor-pointer"
+                >
+                  <span>Browse Safety Products</span>
+                  <ArrowRight className="w-3.5 h-3.5" />
+                </button>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </section>
+
       {/* SECTION 4: B2B & INSTITUTIONAL SERVICES (4 PILLARS & WHY CHOOSE US) */}
       <section className="py-14 sm:py-16 bg-[#f8f9ff]" id="facility-services">
         <div className="max-w-7xl mx-auto px-4 sm:px-6">
           
           <div className="text-center max-w-3xl mx-auto mb-12">
             <span className="px-3 py-1 rounded-full bg-[#EBF3FA] text-[#00355f] text-xs font-bold uppercase tracking-wider font-headline">
-              Enterprise &amp; Institutional Operations
+              Services Ecosystem
             </span>
             <h2 className="text-2xl sm:text-3xl font-headline font-bold text-[#0A2540] mt-3">
-              Integrated Campus &amp; Facility Ecosystem
+              Our Professional Services
             </h2>
             <p className="text-xs sm:text-sm text-slate-600 mt-2">
               Supplying high-volume cleaning chemistry alongside full-lifecycle trained housekeeping staff, mechanized maintenance, and daily verified auditing.
@@ -696,67 +918,103 @@ export const HomeView: React.FC = () => {
           {/* 4 Core Pillars */}
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-14">
             
-            <div className="bg-white p-6 rounded-2xl shadow-xs border border-slate-200/80 flex flex-col">
-              <div className="w-12 h-12 rounded-xl bg-[#d2e4ff] text-[#00355f] flex items-center justify-center mb-4">
-                <Sparkles className="w-6 h-6" />
+            {/* Service 1: Home Care Cleaning Products */}
+            <div 
+              onClick={() => {
+                setCurrentRoute('home-care-cleaning');
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+              }}
+              className="bg-white p-6 rounded-2xl shadow-xs border border-slate-200/80 flex flex-col justify-between hover:shadow-md transition-all cursor-pointer group"
+            >
+              <div>
+                <div className="w-12 h-12 rounded-xl bg-[#d2e4ff] text-[#00355f] flex items-center justify-center mb-4 group-hover:scale-105 transition-transform">
+                  <Sparkles className="w-6 h-6" />
+                </div>
+                <h3 className="text-base font-headline font-bold text-[#0A2540] mb-2 group-hover:text-[#00355f] transition-colors">
+                  Home Care Cleaning Products
+                </h3>
+                <p className="text-xs text-slate-600 mb-4 leading-relaxed">
+                  High-quality cleaning solutions for a cleaner and healthier home. Direct-to-consumer detergents, dishwash gels, and surface cleaners.
+                </p>
               </div>
-              <h3 className="text-base font-headline font-bold text-[#0A2540] mb-2">
-                Home Care Products
-              </h3>
-              <p className="text-xs text-slate-600 mb-4 flex-1 leading-relaxed">
-                Direct-to-consumer and retail stock supply of proprietary detergents, fabric softeners, dishwash gels, and floor deodorizers.
-              </p>
-              <div className="pt-3 border-t border-slate-100 text-xs font-bold text-[#00355f] flex items-center gap-1">
-                <span>BOZZ &amp; Morning Shine</span>
-                <Check className="w-3.5 h-3.5 text-[#006e2d]" />
-              </div>
-            </div>
-
-            <div className="bg-white p-6 rounded-2xl shadow-xs border border-slate-200/80 flex flex-col">
-              <div className="w-12 h-12 rounded-xl bg-[#F0FDF4] text-[#006e2d] flex items-center justify-center mb-4">
-                <Building2 className="w-6 h-6" />
-              </div>
-              <h3 className="text-base font-headline font-bold text-[#0A2540] mb-2">
-                Facility Management
-              </h3>
-              <p className="text-xs text-slate-600 mb-4 flex-1 leading-relaxed">
-                Turnkey campus maintenance for schools, colleges, IT parks, and clinics with mechanized floor scrubbers and bio-hygiene sanitation.
-              </p>
-              <div className="pt-3 border-t border-slate-100 text-xs font-bold text-[#006e2d] flex items-center gap-1">
-                <span>Daily Audited Cleanliness</span>
-                <Check className="w-3.5 h-3.5 text-[#006e2d]" />
+              <div className="pt-3 border-t border-slate-100 text-xs font-bold text-[#00355f] flex items-center justify-between">
+                <span>View Products</span>
+                <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
               </div>
             </div>
 
-            <div className="bg-white p-6 rounded-2xl shadow-xs border border-slate-200/80 flex flex-col">
-              <div className="w-12 h-12 rounded-xl bg-amber-100 text-amber-800 flex items-center justify-center mb-4">
-                <Users className="w-6 h-6" />
+            {/* Service 2: Facility Management Services */}
+            <div 
+              onClick={() => {
+                setCurrentRoute('facility-management');
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+              }}
+              className="bg-white p-6 rounded-2xl shadow-xs border border-slate-200/80 flex flex-col justify-between hover:shadow-md transition-all cursor-pointer group"
+            >
+              <div>
+                <div className="w-12 h-12 rounded-xl bg-[#F0FDF4] text-[#006e2d] flex items-center justify-center mb-4 group-hover:scale-105 transition-transform">
+                  <Building2 className="w-6 h-6" />
+                </div>
+                <h3 className="text-base font-headline font-bold text-[#0A2540] mb-2 group-hover:text-[#006e2d] transition-colors">
+                  Facility Management Services
+                </h3>
+                <p className="text-xs text-slate-600 mb-4 leading-relaxed">
+                  Professional housekeeping &amp; hygiene solutions for schools, colleges, corporate offices, and commercial spaces with mechanized scrubbers.
+                </p>
               </div>
-              <h3 className="text-base font-headline font-bold text-[#0A2540] mb-2">
-                Manpower Support
-              </h3>
-              <p className="text-xs text-slate-600 mb-4 flex-1 leading-relaxed">
-                Vetted, certified personnel deployment: commercial housekeepers, certified site supervisors, and school bus attenders with police verification.
-              </p>
-              <div className="pt-3 border-t border-slate-100 text-xs font-bold text-amber-700 flex items-center gap-1">
-                <span>100% PF/ESI Compliant</span>
-                <Check className="w-3.5 h-3.5 text-[#006e2d]" />
+              <div className="pt-3 border-t border-slate-100 text-xs font-bold text-[#006e2d] flex items-center justify-between">
+                <span>Explore Service &amp; SLAs</span>
+                <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
               </div>
             </div>
 
-            <div className="bg-white p-6 rounded-2xl shadow-xs border border-slate-200/80 flex flex-col">
-              <div className="w-12 h-12 rounded-xl bg-[#e5eeff] text-[#00355f] flex items-center justify-center mb-4">
-                <Warehouse className="w-6 h-6" />
+            {/* Service 3: Manpower Support */}
+            <div 
+              onClick={() => {
+                setCurrentRoute('manpower-support');
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+              }}
+              className="bg-white p-6 rounded-2xl shadow-xs border border-slate-200/80 flex flex-col justify-between hover:shadow-md transition-all cursor-pointer group"
+            >
+              <div>
+                <div className="w-12 h-12 rounded-xl bg-amber-100 text-amber-800 flex items-center justify-center mb-4 group-hover:scale-105 transition-transform">
+                  <Users className="w-6 h-6" />
+                </div>
+                <h3 className="text-base font-headline font-bold text-[#0A2540] mb-2 group-hover:text-amber-800 transition-colors">
+                  Manpower Support
+                </h3>
+                <p className="text-xs text-slate-600 mb-4 leading-relaxed">
+                  Trained and reliable staff for housekeeping, campus maintenance, certified supervisors, school bus attenders, and administrative marshals.
+                </p>
               </div>
-              <h3 className="text-base font-headline font-bold text-[#0A2540] mb-2">
-                Institutional Supplies
-              </h3>
-              <p className="text-xs text-slate-600 mb-4 flex-1 leading-relaxed">
-                Single-invoice procurement for 50L bulk cleaning chemicals, commercial microfiber mops, PPE safety equipment, sports gear &amp; exam stationery.
-              </p>
-              <div className="pt-3 border-t border-slate-100 text-xs font-bold text-[#00355f] flex items-center gap-1">
-                <span>Wholesale Bulk Invoicing</span>
-                <Check className="w-3.5 h-3.5 text-[#006e2d]" />
+              <div className="pt-3 border-t border-slate-100 text-xs font-bold text-amber-800 flex items-center justify-between">
+                <span>View Staffing &amp; Compliance</span>
+                <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
+              </div>
+            </div>
+
+            {/* Service 4: Institutional Supplies */}
+            <div 
+              onClick={() => {
+                setCurrentRoute('institutional-supplies');
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+              }}
+              className="bg-white p-6 rounded-2xl shadow-xs border border-slate-200/80 flex flex-col justify-between hover:shadow-md transition-all cursor-pointer group"
+            >
+              <div>
+                <div className="w-12 h-12 rounded-xl bg-[#e5eeff] text-[#00355f] flex items-center justify-center mb-4 group-hover:scale-105 transition-transform">
+                  <Warehouse className="w-6 h-6" />
+                </div>
+                <h3 className="text-base font-headline font-bold text-[#0A2540] mb-2 group-hover:text-[#00355f] transition-colors">
+                  Institutional &amp; Commercial Supplies
+                </h3>
+                <p className="text-xs text-slate-600 mb-4 leading-relaxed">
+                  Wide range of bulk cleaning materials, safety products, educational stationery, sports supplies, and single-invoice wholesale procurement.
+                </p>
+              </div>
+              <div className="pt-3 border-t border-slate-100 text-xs font-bold text-[#00355f] flex items-center justify-between">
+                <span>View Institutional Catalog</span>
+                <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
               </div>
             </div>
 

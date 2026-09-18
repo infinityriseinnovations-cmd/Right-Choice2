@@ -14,6 +14,7 @@ import { OrderConfirmationView } from './views/OrderConfirmationView';
 import { FacilityManagementView } from './views/FacilityManagementView';
 import { ManpowerSupportView } from './views/ManpowerSupportView';
 import { InstitutionalSuppliesView } from './views/InstitutionalSuppliesView';
+import { HomeCareCleaningView } from './views/HomeCareCleaningView';
 import { AboutUsView } from './views/AboutUsView';
 
 const AppContent: React.FC = () => {
@@ -33,6 +34,8 @@ const AppContent: React.FC = () => {
         return <CheckoutView />;
       case 'order-confirmation':
         return <OrderConfirmationView />;
+      case 'home-care-cleaning':
+        return <HomeCareCleaningView />;
       case 'facility-management':
         return <FacilityManagementView />;
       case 'manpower-support':
