@@ -19,19 +19,33 @@ All production-ready files are packaged in `/cpanel-live-ready/`.
 
 ---
 
-## 🎨 Option 2: WordPress / WooCommerce Theme Upload
+## 🎨 Option 2: WordPress / WooCommerce Theme Upload (Recommended for WordPress)
 
-If you are running a standard WordPress + WooCommerce installation on cPanel:
+If your site is running on WordPress + WooCommerce:
 
-1. Locate the `/wordpress-theme/` folder in this project:
-   - `style.css` (Theme header with WooCommerce support)
-   - `functions.php` (Custom B2B GSTIN checkout fields, Indian Rupee currency filters, enqueue scripts)
-   - `header.php` (Header with Tamilnadu Test House & ISO 9001:2015 compliance bar)
-   - `footer.php` (Factory contacts & quick links)
-   - `index.php` (Standard fallback template)
-2. Compress `wordpress-theme/` into a `.zip` file: `essendaar-theme.zip`.
-3. In your WordPress Admin: Go to **Appearance > Themes > Add New > Upload Theme** and select `essendaar-theme.zip`.
-4. Click **Activate**.
+1. **Upload / Update the Theme**:
+   - In WordPress Admin: Go to **Appearance > Themes > Add New > Upload Theme**.
+   - Upload `essendaar-theme.zip` (available in the project root or `/cpanel-live-ready/essendaar-theme.zip`).
+   - Click **Install Now** and **Activate** (or Replace active theme with uploaded).
+
+2. **1-Click Automatic Page & Template Linker**:
+   - Upload `setup-wordpress-pages.php` to your `public_html` folder.
+   - Open in your browser: `https://rightchoiceindia.com/setup-wordpress-pages.php`
+   - This automatically creates and links the **Home**, **About Us** (with D Siva Krishnan, B.E executive card & photo), **Facility Management**, **Manpower Support**, **Institutional Supplies**, and **Contact** pages, and assigns the navigation menu!
+
+---
+
+## 🚀 Option 1: Standalone Web App Live Upload (Fastest — 2 Minutes)
+
+All production-ready files are packaged in `/cpanel-live-ready/`.
+
+1. **Log in to your cPanel account**.
+2. Open **File Manager** and navigate to your document root (`public_html`).
+3. Upload and extract the contents of `cpanel-live-ready/`:
+   - `index.html`
+   - `assets/` folder (JavaScript bundle, styles, `siva-krishnan.jpg`)
+   - `.htaccess` (Configured for routing & HTTPS)
+4. Visit `https://rightchoiceindia.com`. The modern responsive application with the full storefront, about us, and RFPs will be live immediately!
 
 ---
 
